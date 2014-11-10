@@ -21,6 +21,12 @@ public class AccountImplem extends UnicastRemoteObject implements IAccount{
 		this.overdraw = 0;
 	}
 
+	protected AccountImplem(IUser user, long cash, int overdraw) throws RemoteException {
+		this.user = user;
+		this.cash = cash;
+		this.overdraw = overdraw;
+	}
+	
 	public IUser getAccountUser() {
 		return user;
 	}
