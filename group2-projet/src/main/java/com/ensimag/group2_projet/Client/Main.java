@@ -23,7 +23,7 @@ public class Main {
         try {
             System.out.println(ibn.getId()); 
             IUser user = new UserImplem("linares","clement","22");
-            ibn.openAccount(user);
+            //ibn.openAccount(user);
             /*ArrayList<IAccount> list = (ArrayList<IAccount>) ibn.getAccounts();
             for(IAccount a : list){
             	System.out.println(a.getAccountUser().getFirstName());
