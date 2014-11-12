@@ -12,6 +12,10 @@ import com.ensimag.api.bank.IUser;
 
 public class BankImplem extends UnicastRemoteObject implements IBank{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -859025434892140986L;
 	private long bankId;
 	private List<IAccount> accountBank;
 	
@@ -24,6 +28,11 @@ public class BankImplem extends UnicastRemoteObject implements IBank{
 	protected BankImplem(long bankId, List<IAccount> accountBank) throws RemoteException {
 		this.bankId=bankId;
 		this.accountBank=accountBank;
+	}
+	
+	public BankImplem(long bankId) throws RemoteException {
+		this.bankId=bankId;
+		this.accountBank = new ArrayList<IAccount>();
 	}
 	
 	public List<IAccount> getAccounts() throws RemoteException {

@@ -1,7 +1,5 @@
 package com.ensimag.group2_projet;
 
-import com.ensimag.api.node.INode;
-
 /**
  * Lol!
  *
