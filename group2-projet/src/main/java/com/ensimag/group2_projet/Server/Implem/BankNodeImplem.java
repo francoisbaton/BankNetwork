@@ -25,12 +25,14 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	private BankImplem bank;
 	private long id;
 	private ArrayList<INode<IBankMessage>> neighboors;
+	private List<IResult<? extends Serializable>> listRes;
 	
 	protected BankNodeImplem() throws RemoteException {
 		super();
 		this.id = 0;
 		this.bank = new BankImplem();
 		this.neighboors = new ArrayList<INode<IBankMessage>>();
+		this.listRes = new  ArrayList<IResult<? extends Serializable>>();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -38,6 +40,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 		this.id = id;
 		this.bank = new BankImplem(id);
 		this.neighboors = new ArrayList<INode<IBankMessage>>();
+		this.listRes = new  ArrayList<IResult<? extends Serializable>>();
 	}
 
 	//Redefinition d equals pour savoir l id des voisins
