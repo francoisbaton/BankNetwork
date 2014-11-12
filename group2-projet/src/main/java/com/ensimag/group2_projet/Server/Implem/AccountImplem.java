@@ -23,6 +23,7 @@ public class AccountImplem extends UnicastRemoteObject implements IAccount{
 		this.user = new UserImplem();
 		this.cash = 0;
 		this.overdraw = 0;
+		this.accountNumber = 0;
 	}
 
 	protected AccountImplem(IUser user, long cash, int overdraw,long accountNumber) throws RemoteException {
