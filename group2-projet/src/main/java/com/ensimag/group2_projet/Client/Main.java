@@ -6,8 +6,6 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import com.ensimag.api.bank.IBankNode;
-import com.ensimag.api.bank.IUser;
-import com.ensimag.group2_projet.Server.Implem.UserImplem;
 
 
 
@@ -22,12 +20,13 @@ public class Main {
         
         try {
             System.out.println(ibn.getId()); 
-            IUser user = new UserImplem("linares","clement","22");
+            //IUser user = new UserImplem("linares","clement","22");
+            
             //ibn.openAccount(user);
-            /*ArrayList<IAccount> list = (ArrayList<IAccount>) ibn.getAccounts();
-            for(IAccount a : list){
-            	System.out.println(a.getAccountUser().getFirstName());
-            }*/
+            //List<IAccount> list = ibn.getAccounts();
+            //for(IAccount a : list){
+            //	System.out.println(a.getAccountUser().getFirstName());
+            //}
         }
         catch (Exception e)
         {
