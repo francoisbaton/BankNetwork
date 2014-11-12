@@ -66,7 +66,7 @@ public class AccountImplem extends UnicastRemoteObject implements IAccount{
 	 *             overdraw included
 	 */
 	public int remove(int amount) throws NotEnoughMoneyException {
-		if(this.cash - amount < 0 ){
+		if(this.cash - amount < this.overdraw ){
 			throw new NotEnoughMoneyException(this);
 		}else{
 			this.cash -= amount;
