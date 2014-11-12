@@ -5,7 +5,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
 import com.ensimag.api.bank.IBankNode;
+
+
 
 
 
@@ -20,6 +23,7 @@ public class Main {
         
         try {
             System.out.println(ibn.getId()); 
+
             //IUser user = new UserImplem("linares","clement","22");
             
             //ibn.openAccount(user);
