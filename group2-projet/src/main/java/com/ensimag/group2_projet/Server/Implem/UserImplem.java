@@ -7,6 +7,10 @@ import com.ensimag.api.bank.IUser;
 
 public class UserImplem extends UnicastRemoteObject implements IUser{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2132616573118932797L;
 	String name;
 	String firstName;
 	String age;
@@ -17,6 +21,12 @@ public class UserImplem extends UnicastRemoteObject implements IUser{
 		name = "unknown";
 		firstName = "unknown";
 		age = "unknown";
+	}
+	
+	public UserImplem(String name, String firstName, String age) throws RemoteException{
+		this.name = name;
+		this.firstName = firstName;
+		this.age = age;
 	}
 
 	public String getName(){

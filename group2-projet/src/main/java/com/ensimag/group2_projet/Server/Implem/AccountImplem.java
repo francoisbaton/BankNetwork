@@ -9,9 +9,13 @@ import com.ensimag.api.bank.NotEnoughMoneyException;
 
 public class AccountImplem extends UnicastRemoteObject implements IAccount{
 
-	IUser user;
-	long cash;
-	int overdraw;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2686599075236078656L;
+	private IUser user;
+	private long cash;
+	private int overdraw;
 	
 	
 	protected AccountImplem() throws RemoteException {
@@ -21,6 +25,12 @@ public class AccountImplem extends UnicastRemoteObject implements IAccount{
 		this.overdraw = 0;
 	}
 
+	protected AccountImplem(IUser user, long cash, int overdraw) throws RemoteException {
+		this.user = user;
+		this.cash = cash;
+		this.overdraw = overdraw;
+	}
+	
 	public IUser getAccountUser() {
 		return user;
 	}
