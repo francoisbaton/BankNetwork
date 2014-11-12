@@ -5,12 +5,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-
-import com.ensimag.api.bank.IAccount;
 import com.ensimag.api.bank.IBankNode;
 import com.ensimag.api.bank.IUser;
-import com.ensimag.group2_projet.Server.Implem.BankNodeImplem;
 import com.ensimag.group2_projet.Server.Implem.UserImplem;
 
 
