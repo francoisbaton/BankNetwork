@@ -9,56 +9,86 @@ import com.ensimag.api.message.EnumMessageType;
 
 public class BankMessageImplem extends UnicastRemoteObject implements IBankMessage {
 
+	private long senderId;
+	private long originalSenderId;
+	private long messageId;
+	private long targetBankId;
+	private EnumMessageType messageType;
+	private IBankAction bankAction;
+	
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2331890684694465315L;
 
-	protected BankMessageImplem() throws RemoteException {
+	public BankMessageImplem() throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
+		this.senderId = 0;
+		this.originalSenderId = 0;
+		this.messageId = 0;
+		this.targetBankId = 0;
+		this.messageType = EnumMessageType.BROADCAST;
+		this.bankAction = new BankActionImplem();
 	}
+	
+	public BankMessageImplem(long originalSenderId, long senderId, long messageId,
+			long targetBankId, EnumMessageType messageType, IBankAction bankAction) throws RemoteException {
+		super();
+		this.senderId = senderId;
+		this.originalSenderId = originalSenderId;
+		this.messageId = messageId;
+		this.targetBankId = targetBankId;
+		this.messageType = messageType;
+		this.bankAction = bankAction;
+	}
+	
 
 	
 	public long getMessageId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.messageId;
 	}
 
 	public long getOriginalBankSenderId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.originalSenderId;
 	}
 
 	public long getSenderId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.senderId;
 	}
 
 	public void setSenderId(long senderId) {
-		// TODO Auto-generated method stub
+		this.senderId = senderId;
 		
 	}
 
 	public long getDestinationBankId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.targetBankId;
 	}
 
 	public EnumMessageType getMessageType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.messageType;
 	}
 
 	public IBankAction getAction() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.bankAction;
 	}
 
 	public IBankMessage clone() {
-		// TODO Auto-generated method stub
+		
+		BankMessageImplem bankMessageCloned;
+		//TODO deepcopy de bankAction?
+		try {
+			bankMessageCloned = new BankMessageImplem(this.originalSenderId, this.originalSenderId,
+					this.messageId, this.targetBankId, this.messageType, this.bankAction);
+			return bankMessageCloned;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
+		
+
 	}
 
 }

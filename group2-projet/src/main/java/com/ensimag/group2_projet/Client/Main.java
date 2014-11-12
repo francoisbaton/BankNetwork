@@ -26,6 +26,8 @@ public class Main {
         try {
             System.out.println(ibn.getId()); 
             IUser user = new UserImplem("linares","clement","22");
+            ibn.getAccounts();
+            
             //ibn.openAccount(user);
             /*ArrayList<IAccount> list = (ArrayList<IAccount>) ibn.getAccounts();
             for(IAccount a : list){

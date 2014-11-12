@@ -13,7 +13,7 @@ public class Main {
             Registry registry = LocateRegistry.createRegistry(1099);
              
             // create a new service named myMessage
-            BankNodeImplem bankNode = new BankNodeImplem(23);
+            BankNodeImplem bankNode = new BankNodeImplem(24);
             
             registry.rebind("myBankNode", bankNode);
         } catch (Exception e) {
