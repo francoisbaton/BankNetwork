@@ -10,6 +10,11 @@ import com.ensimag.api.message.EnumMessageType;
 public class BankMessageImplem extends UnicastRemoteObject implements IBankMessage {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2331890684694465315L;
+
 	protected BankMessageImplem() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
