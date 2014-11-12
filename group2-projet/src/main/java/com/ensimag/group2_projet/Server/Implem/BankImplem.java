@@ -50,7 +50,8 @@ public class BankImplem extends UnicastRemoteObject implements IBank{
 	}
 
 	public IAccount openAccount(IUser user) throws RemoteException {
-		IAccount newAccount= new AccountImplem(user,0,0);
+		//TODO Faire une generateur d'id
+		IAccount newAccount= new AccountImplem(user,0,0,0);
 		accountBank.add(newAccount);
 		return newAccount;
 	}
