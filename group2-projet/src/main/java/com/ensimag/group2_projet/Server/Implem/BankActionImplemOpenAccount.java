@@ -26,7 +26,8 @@ public class BankActionImplemOpenAccount extends BankActionImplem {
 
 	public Serializable execute(IBankNode node) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		//return null;
+		return node.openAccount(user);
 	}
 	
 	

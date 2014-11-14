@@ -13,6 +13,7 @@ public class BankActionImplemCloseAccount extends BankActionImplem {
 	 */
 	private static final long serialVersionUID = 5542925532428218146L;
 	
+	
 	public BankActionImplemCloseAccount() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
