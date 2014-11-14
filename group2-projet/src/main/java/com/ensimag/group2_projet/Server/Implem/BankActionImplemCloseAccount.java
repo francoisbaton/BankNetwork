@@ -23,5 +23,10 @@ public class BankActionImplemCloseAccount extends BankActionImplem {
 		this.number = number;
 	}
 
+	public Serializable execute(IBankNode node) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
