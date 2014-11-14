@@ -67,8 +67,21 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	}
 
 	public void onMessage(IBankMessage message) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		//Execute l'action du message si l id de la destination == id bank
+		try {
+			if(message.getDestinationBankId() == this.getId()){
+				message.getAction().execute(this);
+			}else{
+				//Propage le message
+				//TODO
+				for(INode<IBankMessage> voisin : this.neighboors){
+					voisin.onMessage(message);
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -79,7 +92,9 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	 * @throws RemoteException
 	 */
 	public void onAck(IAck ack) throws RemoteException {
-		//TODO
+		//TODO emission du ack
+		//Si on a touché tous le monde alors ok.
+		
 		
 	}
 
@@ -93,6 +108,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	public List<IResult<? extends Serializable>> getResultForMessage(
 			long messageId) throws RemoteException {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
