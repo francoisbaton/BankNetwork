@@ -14,6 +14,7 @@ public class BankActionImplemCloseAccount extends BankActionImplem {
 	private static final long serialVersionUID = 5542925532428218146L;
 	private long number;
 	
+	
 	public BankActionImplemCloseAccount() throws RemoteException {
 		super();
 		this.number = 0;

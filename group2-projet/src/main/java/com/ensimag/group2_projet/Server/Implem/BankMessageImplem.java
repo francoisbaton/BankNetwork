@@ -29,7 +29,7 @@ public class BankMessageImplem extends UnicastRemoteObject implements IBankMessa
 		this.messageId = 0;
 		this.targetBankId = 0;
 		this.messageType = EnumMessageType.BROADCAST;
-		this.bankAction = new BankActionImplem();
+		this.bankAction = null;
 	}
 	
 	public BankMessageImplem(long originalSenderId, long senderId, long messageId,
