@@ -30,20 +30,14 @@ public class UserImplem extends UnicastRemoteObject implements IUser{
 	}
 
 	public String getName(){
-		// TODO Auto-generated method stub
-		//return null;
 		return name;
 	}
 
 	public String getFirstName(){
-		// TODO Auto-generated method stub
-		//return null;
 		return firstName;
 	}
 
 	public String getAge() {
-		// TODO Auto-generated method stub
-		//return null;
 		return age;
 	}
 

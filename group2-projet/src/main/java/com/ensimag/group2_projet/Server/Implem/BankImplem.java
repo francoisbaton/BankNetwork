@@ -61,7 +61,7 @@ public class BankImplem extends UnicastRemoteObject implements IBank{
 		for(int i=0; i<accountBank.size();i++){
 			IAccount temp=accountBank.get(i);
 			if(temp.getAccountNumber()==number)
-				;
+				this.accountBank.remove(temp);
 		}
 		throw new AccountNotFoundException();
 	}
