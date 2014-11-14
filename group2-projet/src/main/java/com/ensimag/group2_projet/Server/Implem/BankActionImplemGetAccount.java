@@ -11,18 +11,21 @@ public class BankActionImplemGetAccount extends BankActionImplem{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private long number;
 	
 	public BankActionImplemGetAccount() throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
+		this.number = 0;
 	}
+	
+	public BankActionImplemGetAccount(long numberAccount) throws RemoteException {
+		super();
+		this.number = numberAccount;
+	}
+	
 
 	public Serializable execute(IBankNode node) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return node.getAccount(this.number);
 	}
 
-	
-	
-	
 }
