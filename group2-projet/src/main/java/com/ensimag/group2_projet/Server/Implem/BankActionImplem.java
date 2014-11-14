@@ -10,6 +10,15 @@ import com.ensimag.api.bank.IBankNode;
 //TODO
 public class BankActionImplem extends UnicastRemoteObject implements IBankAction{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	
+	
 	public BankActionImplem() throws RemoteException {
 		super();
 	}
@@ -25,12 +34,7 @@ public class BankActionImplem extends UnicastRemoteObject implements IBankAction
 		}
 		return null;
 	}
-	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 
 	public Serializable execute(IBankNode node) throws Exception {
 		// TODO Auto-generated method stub
