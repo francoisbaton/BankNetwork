@@ -1,19 +1,18 @@
 package com.ensimag.group2_projet.Server.Implem;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import com.ensimag.api.bank.IUser;
 
-public class UserImplem extends UnicastRemoteObject implements IUser{
+public class UserImplem implements IUser, Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2132616573118932797L;
-	String name;
-	String firstName;
-	String age;
+	private String name;
+	private String firstName;
+	private String age;
 	
 	
 	protected UserImplem() throws RemoteException {

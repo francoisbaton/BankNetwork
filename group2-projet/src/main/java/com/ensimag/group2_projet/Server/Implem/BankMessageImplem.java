@@ -1,13 +1,14 @@
 package com.ensimag.group2_projet.Server.Implem;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import com.ensimag.api.bank.IBankAction;
 import com.ensimag.api.bank.IBankMessage;
 import com.ensimag.api.message.EnumMessageType;
 
-public class BankMessageImplem extends UnicastRemoteObject implements IBankMessage {
+
+public class BankMessageImplem implements IBankMessage, Serializable {
 
 	private long senderId;
 	private long originalSenderId;

@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 
 import com.ensimag.api.bank.IBankNode;
 
+
+
 public class BankActionImplemGetAccount extends BankActionImplem{
 
 	/**

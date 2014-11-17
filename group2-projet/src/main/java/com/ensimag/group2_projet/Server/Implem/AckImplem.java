@@ -1,11 +1,10 @@
 package com.ensimag.group2_projet.Server.Implem;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import com.ensimag.api.message.IAck;
 
-public class AckImplem extends UnicastRemoteObject implements IAck{
+public class AckImplem implements IAck, Serializable{
 
 	public AckImplem() throws RemoteException {
 		super();

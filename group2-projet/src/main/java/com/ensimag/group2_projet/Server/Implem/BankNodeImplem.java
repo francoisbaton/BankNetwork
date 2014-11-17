@@ -9,6 +9,7 @@ import java.util.List;
 import javax.security.auth.login.AccountNotFoundException;
 
 import com.ensimag.api.bank.IAccount;
+import com.ensimag.api.bank.IBank;
 import com.ensimag.api.bank.IBankMessage;
 import com.ensimag.api.bank.IBankNode;
 import com.ensimag.api.bank.IUser;
@@ -22,7 +23,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	 * 
 	 */
 	private static final long serialVersionUID = 4570225617460237787L;
-	private BankImplem bank;
+	private IBank bank;
 	private long id;
 	private ArrayList<INode<IBankMessage>> neighboors;
 	private List<IResult<? extends Serializable>> listRes;
@@ -147,7 +148,6 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	public IAccount openAccount(IUser user) throws RemoteException {
 		return this.bank.openAccount(user);
 	}
-
 
 
 	public boolean closeAccount(long number) throws AccountNotFoundException,

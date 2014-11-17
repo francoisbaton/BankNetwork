@@ -1,13 +1,12 @@
 package com.ensimag.group2_projet.Server.Implem;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import com.ensimag.api.bank.IAccount;
 import com.ensimag.api.bank.IUser;
 import com.ensimag.api.bank.NotEnoughMoneyException;
 
-public class AccountImplem extends UnicastRemoteObject implements IAccount{
+public class AccountImplem implements IAccount, Serializable{
 
 	/**
 	 * 
@@ -18,7 +17,7 @@ public class AccountImplem extends UnicastRemoteObject implements IAccount{
 	private int overdraw;
 	private long accountNumber;
 	
-	protected AccountImplem() throws RemoteException {
+	public AccountImplem() throws RemoteException {
 		super();
 		this.user = new UserImplem();
 		this.cash = 0;
@@ -26,7 +25,7 @@ public class AccountImplem extends UnicastRemoteObject implements IAccount{
 		this.accountNumber = 0;
 	}
 
-	protected AccountImplem(IUser user, long cash, int overdraw,long accountNumber) throws RemoteException {
+	public AccountImplem(IUser user, long cash, int overdraw,long accountNumber) throws RemoteException {
 		this.user = user;
 		this.cash = cash;
 		this.overdraw = overdraw;

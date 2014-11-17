@@ -1,11 +1,10 @@
 package com.ensimag.group2_projet.Server.Implem;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import com.ensimag.api.bank.IBankAction;
 
-public abstract class BankActionImplem extends UnicastRemoteObject implements IBankAction{
+public abstract class BankActionImplem implements IBankAction, Serializable{
 
 	protected BankActionImplem() throws RemoteException {
 		super();
