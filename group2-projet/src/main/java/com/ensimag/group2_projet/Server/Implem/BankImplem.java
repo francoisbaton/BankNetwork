@@ -51,7 +51,7 @@ public class BankImplem implements IBank, Serializable{
 
 	public IAccount openAccount(IUser user) throws RemoteException {
 		//TODO Faire une generateur d'id
-		IAccount newAccount= new AccountImplem(user,100,0,0);
+		IAccount newAccount= new AccountImplem(user,100,0);
 		accountBank.add(newAccount);
 		return newAccount;
 	}

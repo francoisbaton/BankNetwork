@@ -2,6 +2,8 @@ package com.ensimag.group2_projet.Server.Implem;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.UUID;
+
 import com.ensimag.api.bank.IAccount;
 import com.ensimag.api.bank.IUser;
 import com.ensimag.api.bank.NotEnoughMoneyException;
@@ -22,14 +24,16 @@ public class AccountImplem implements IAccount, Serializable{
 		this.user = new UserImplem();
 		this.cash = 0;
 		this.overdraw = 0;
-		this.accountNumber = 0;
+		long uniqueID = UUID.randomUUID().getMostSignificantBits();
+		this.accountNumber = uniqueID;
 	}
 
-	public AccountImplem(IUser user, long cash, int overdraw,long accountNumber) throws RemoteException {
+	public AccountImplem(IUser user, long cash, int overdraw) throws RemoteException {
 		this.user = user;
 		this.cash = cash;
 		this.overdraw = overdraw;
-		this.accountNumber = accountNumber;
+		long uniqueID = UUID.randomUUID().getMostSignificantBits();
+		this.accountNumber = uniqueID;
 	}
 	
 	public IUser getAccountUser() {

@@ -7,16 +7,14 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.UUID;
 
-import com.ensimag.api.bank.IBankAction;
-import com.ensimag.api.bank.IBankMessage;
+import com.ensimag.api.bank.IAccount;
 import com.ensimag.api.bank.IBankNode;
-import com.ensimag.api.message.EnumMessageType;
-import com.ensimag.api.message.IMessage;
-import com.ensimag.group2_projet.Server.Implem.BankActionImplem;
-import com.ensimag.group2_projet.Server.Implem.BankActionImplemOpenAccount;
-import com.ensimag.group2_projet.Server.Implem.BankMessageImplem;
+import com.ensimag.api.bank.IUser;
 import com.ensimag.group2_projet.Server.Implem.UserImplem;
+
+
 
 
 
@@ -30,24 +28,33 @@ public class Main {
         IBankNode ibn = (IBankNode) Naming.lookup("rmi://localhost/myBankNode");
         
         try {
-            System.out.println(ibn.getId());
-            UserImplem user = new UserImplem("toto", "jack", "24");
-            IBankAction ibankAction = new BankActionImplemOpenAccount(user);
-            //BankActionImplemOpenAccount action = new BankActionImplemOpenAccount(user);
-            IBankMessage mess = new BankMessageImplem(23,23,0,23,EnumMessageType.SINGLE_DEST,ibankAction);
-            //Creation du compte en théorie
-            //IBankMessage ibMessage = new BankMessageImplem();
-            //ibn.onMessage(mess);
-            if(mess instanceof IBankMessage){
-            	System.out.println("Clermont caca");
-            }else{
-            	System.out.println("Ajaccio caca");
-            }
-            //IUser user = new UserImplem("linares","clement","22");
 
-            String list = null;
-			if(list.isEmpty())
+            System.out.println(ibn.getId()); 
+
+            IUser user = new UserImplem("linares","clement","22");
+           
+            ibn.openAccount(user);
+            System.out.println(ibn.getAccount(0).getTotal());
+            
+            /*if(ibn.closeAccount(0))
+            	System.out.println("Compte supprimé avec succès\n");*/
+            
+            List<IAccount> list = ibn.getAccounts();
+            
+            for (int i = 0; i < 10; i++) {
+            	long uniqueID = UUID.randomUUID().getMostSignificantBits();
+            	
+            	
+			}
+            
+            
+            if(list.isEmpty()){
             	System.out.println("ok");
+            }else{
+            	for(IAccount acc : list){
+            		System.out.println(acc.getAccountNumber());
+            	}
+            }
         }
         catch (Exception e)
         {
