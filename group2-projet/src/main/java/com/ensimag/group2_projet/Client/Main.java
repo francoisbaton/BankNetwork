@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import com.ensimag.api.bank.IBankAction;
 import com.ensimag.api.bank.IBankMessage;
@@ -16,8 +17,6 @@ import com.ensimag.group2_projet.Server.Implem.BankActionImplem;
 import com.ensimag.group2_projet.Server.Implem.BankActionImplemOpenAccount;
 import com.ensimag.group2_projet.Server.Implem.BankMessageImplem;
 import com.ensimag.group2_projet.Server.Implem.UserImplem;
-
-
 
 
 
@@ -45,12 +44,10 @@ public class Main {
             	System.out.println("Ajaccio caca");
             }
             //IUser user = new UserImplem("linares","clement","22");
-            
-            //ibn.openAccount(user);
-            //List<IAccount> list = ibn.getAccounts();
-            //for(IAccount a : list){
-            //	System.out.println(a.getAccountUser().getFirstName());
-            //}
+
+            String list = null;
+			if(list.isEmpty())
+            	System.out.println("ok");
         }
         catch (Exception e)
         {

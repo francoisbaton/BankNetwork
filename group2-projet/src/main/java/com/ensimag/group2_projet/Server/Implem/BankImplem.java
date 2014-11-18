@@ -1,7 +1,7 @@
 package com.ensimag.group2_projet.Server.Implem;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -10,7 +10,7 @@ import com.ensimag.api.bank.IAccount;
 import com.ensimag.api.bank.IBank;
 import com.ensimag.api.bank.IUser;
 
-public class BankImplem extends UnicastRemoteObject implements IBank{
+public class BankImplem implements IBank, Serializable{
 
 	/**
 	 * 
@@ -51,23 +51,25 @@ public class BankImplem extends UnicastRemoteObject implements IBank{
 
 	public IAccount openAccount(IUser user) throws RemoteException {
 		//TODO Faire une generateur d'id
-		IAccount newAccount= new AccountImplem(user,0,0,0);
+		IAccount newAccount= new AccountImplem(user,100,0,0);
 		accountBank.add(newAccount);
 		return newAccount;
 	}
 
 	public boolean closeAccount(long number) throws AccountNotFoundException,
 			RemoteException {
+		
 		for(int i=0; i<accountBank.size();i++){
 			IAccount temp=accountBank.get(i);
-			if(temp.getAccountNumber()==number)
+			if(temp.getAccountNumber()==number){
 				this.accountBank.remove(temp);
+				return true;
+			}
 		}
 		throw new AccountNotFoundException();
 	}
 
 	public long getBankId() {
-		// TODO Auto-generated method stub
 		return this.bankId;
 	}
 	

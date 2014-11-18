@@ -2,11 +2,9 @@ package com.ensimag.group2_projet.Server.Implem;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import com.ensimag.api.message.IResult;
 
-public class ResultImplem extends UnicastRemoteObject implements IResult<Serializable>{
+public class ResultImplem implements IResult<Serializable>, Serializable{
 	
 	private long messageId;
 	private Serializable data;
