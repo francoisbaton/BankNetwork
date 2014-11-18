@@ -66,11 +66,16 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 		return this.id;
 	}
 
+	//public void onMessage(MessageType message) throws RemoteException {
 	public void onMessage(IBankMessage message) throws RemoteException {
 		//Execute l'action du message si l id de la destination == id bank
 		try {
+			System.out.println("Or de la boucle");
 			if(message.getDestinationBankId() == this.getId()){
+				System.out.println("Dans la boucle");
+				//listRes.add((IResult<? extends Serializable>)message.getAction().execute(this));
 				message.getAction().execute(this);
+				
 			}else{
 				//Propage le message
 				//TODO
