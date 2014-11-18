@@ -52,8 +52,6 @@ public class Main {
             		System.out.println(ibn.closeAccount(acc.getAccountNumber()));
             	}
             }
-
-            
             
         }
         catch (Exception e)

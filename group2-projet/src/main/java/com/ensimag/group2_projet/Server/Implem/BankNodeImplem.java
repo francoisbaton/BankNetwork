@@ -63,6 +63,11 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 		}
 	}
 
+	public IBank getBank() throws RemoteException {
+		return this.bank;
+	}
+
+	
 	public long getId() throws RemoteException {
 		return this.id;
 	}
