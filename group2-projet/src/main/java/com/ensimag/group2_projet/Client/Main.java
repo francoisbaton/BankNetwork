@@ -25,22 +25,21 @@ import com.ensimag.group2_projet.Server.Implem.UserImplem;
 public class Main {
     public static void main(String[] args) throws RemoteException, NotBoundException, MalformedURLException
     {
-        IBankNode ibn = (IBankNode) Naming.lookup("rmi://localhost/myBankNode");
+        IBankNode ibn1 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode1");
+        IBankNode ibn2 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode2");
+        IBankNode ibn3 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode3");
+        IBankNode ibn4 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode4");
+        IBankNode ibn5 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode5");
         
         try {
 
-            System.out.println(ibn.getId()); 
+            System.out.println(ibn1.getId()); 
 
             IUser user = new UserImplem("linares","clement","22");
            
-            ibn.openAccount(user);
-            //System.out.println(ibn.getAccount().getTotal());
+            ibn1.openAccount(user);
             
-            /*if(ibn.closeAccount(0))
-            	System.out.println("Compte supprimé avec succès\n");*/
-            
-            List<IAccount> list = ibn.getAccounts();
-            
+            List<IAccount> list = ibn1.getAccounts();
             
             if(list.isEmpty()){
             	System.out.println("ok");
@@ -49,7 +48,7 @@ public class Main {
             		System.out.println("Nom :" + acc.getAccountUser().getFirstName());
             		System.out.println("Prénom :" + acc.getAccountUser().getName());
             		System.out.println(acc.getAccountNumber());
-            		System.out.println(ibn.closeAccount(acc.getAccountNumber()));
+            		System.out.println(ibn1.closeAccount(acc.getAccountNumber()));
             	}
             }
             
