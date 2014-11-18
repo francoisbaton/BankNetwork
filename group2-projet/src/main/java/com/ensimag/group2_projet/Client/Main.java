@@ -34,27 +34,27 @@ public class Main {
             IUser user = new UserImplem("linares","clement","22");
            
             ibn.openAccount(user);
-            System.out.println(ibn.getAccount(0).getTotal());
+            //System.out.println(ibn.getAccount().getTotal());
             
             /*if(ibn.closeAccount(0))
             	System.out.println("Compte supprimé avec succès\n");*/
             
             List<IAccount> list = ibn.getAccounts();
             
-            for (int i = 0; i < 10; i++) {
-            	long uniqueID = UUID.randomUUID().getMostSignificantBits();
-            	
-            	
-			}
-            
             
             if(list.isEmpty()){
             	System.out.println("ok");
             }else{
             	for(IAccount acc : list){
+            		System.out.println("Nom :" + acc.getAccountUser().getFirstName());
+            		System.out.println("Prénom :" + acc.getAccountUser().getName());
             		System.out.println(acc.getAccountNumber());
+            		System.out.println(ibn.closeAccount(acc.getAccountNumber()));
             	}
             }
+
+            
+            
         }
         catch (Exception e)
         {
