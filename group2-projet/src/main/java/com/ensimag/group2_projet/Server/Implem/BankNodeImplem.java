@@ -133,9 +133,18 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 
 	public List<IResult<? extends Serializable>> getResultForMessage(
 			long messageId) throws RemoteException {
-		// TODO Auto-generated method stub
 		
-		return null;
+		 //On cree la liste de résultat a renvoyer
+		 List<IResult<? extends Serializable>> listRes = new ArrayList<IResult<? extends Serializable>>();
+		 
+		 //Pour chaque elem dans la liste res de ma classe je regarde si le message est dans celle-ci
+		 for( IResult<? extends Serializable> elem : this.listRes){
+			 if(elem.getMessageId() == messageId ){
+				//si c'est le cas, je l'add à ma liste à retourner
+				 listRes.add(elem);
+			 }
+		 }
+		 return listRes;
 	}
 
 	public Boolean deliverResult(IResult<Serializable> result)
