@@ -74,19 +74,35 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 
 	//public void onMessage(MessageType message) throws RemoteException {
 	public void onMessage(IBankMessage message) throws RemoteException {
-		//Execute l'action du message si l id de la destination == id bank
 		try {
-			System.out.println("Or de la boucle");
+			//Execute l'action du message si l id de la destination == id bank
 			if(message.getDestinationBankId() == this.bank.getBankId()){
-				System.out.println("Dans la boucle");
-				//listRes.add((IResult<? extends Serializable>)message.getAction().execute(this));
+				
 				message.getAction().execute(this);
 				
-			}else{
-				//Propage le message
-				//TODO
-				for(INode<IBankMessage> voisin : this.neighboors){
-					voisin.onMessage(message);
+			}else if(message.getOriginalBankSenderId() == this.bank.getBankId()){ // Requete client
+				
+				
+			}else{//Propage le message
+				
+				//Si noeud puit
+				if(this.neighboors.size() == 1){
+					//Renvoie du ack
+					AckImplem ack = new AckImplem();
+					this.onAck(ack);
+				}else{ // Noeud non puits
+					//Si la premiere fois reception message
+					if(!(this.listRes.contains(message))){
+						
+						
+						/*for(INode<IBankMessage> voisin : this.neighboors){
+							voisin.onMessage(message);
+						}*/
+					}else{ 
+						// Si pas la premiere fois
+						AckImplem ack = new AckImplem();
+						//this.onAck(ack);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -104,7 +120,6 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	 */
 	public void onAck(IAck ack) throws RemoteException {
 		//TODO emission du ack
-		//Si on a touché tous le monde alors ok.
 		
 		
 	}
