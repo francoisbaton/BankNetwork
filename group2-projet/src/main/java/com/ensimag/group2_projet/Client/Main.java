@@ -10,8 +10,13 @@ import java.util.List;
 import java.util.UUID;
 
 import com.ensimag.api.bank.IAccount;
+import com.ensimag.api.bank.IBankAction;
+import com.ensimag.api.bank.IBankMessage;
 import com.ensimag.api.bank.IBankNode;
 import com.ensimag.api.bank.IUser;
+import com.ensimag.api.message.EnumMessageType;
+import com.ensimag.group2_projet.Server.Implem.BankActionImplemOpenAccount;
+import com.ensimag.group2_projet.Server.Implem.BankMessageImplem;
 import com.ensimag.group2_projet.Server.Implem.UserImplem;
 
 
@@ -37,7 +42,7 @@ public class Main {
 
             IUser user = new UserImplem("linares","clement","22");
            
-            ibn1.openAccount(user);
+            /*ibn1.openAccount(user);
             
             List<IAccount> list = ibn1.getAccounts();
             
@@ -50,8 +55,12 @@ public class Main {
             		System.out.println(acc.getAccountNumber());
             		System.out.println(ibn1.closeAccount(acc.getAccountNumber()));
             	}
-            }
+            }*/
             
+            IBankAction action = new BankActionImplemOpenAccount(user);
+            IBankMessage ibm = new BankMessageImplem(ibn1.getId(),ibn1.getId(),23,ibn5.getId(),EnumMessageType.BROADCAST,action);
+            
+            ibn1.onMessage(ibm);
         }
         catch (Exception e)
         {

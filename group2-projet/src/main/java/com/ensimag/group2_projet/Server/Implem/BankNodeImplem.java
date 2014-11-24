@@ -83,6 +83,8 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	
 	public void onMessage(IBankMessage message) throws RemoteException {
 		try {
+			
+			System.out.println("onMessage : " + this.id);
 			//Execute l'action du message si l id de la destination == id bank
 			if(message.getDestinationBankId() == this.bank.getBankId()){
 				//Cree le résultat de l'action
@@ -105,7 +107,9 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 			}
 			else{//Propage le message	
 				//Si noeud puit
+				System.out.println("ELSE");
 				if(this.neighboors.size() == 1){
+					System.out.println("ELSE-IF");
 					//Renvoie du ack
 					//Propage ACK
 					IAck ack = new AckImplem(this.bank.getBankId(), message.getMessageId());
@@ -114,7 +118,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 					}
 					
 				}else{ // Noeud non puits
-					
+					System.out.println("ELSE-ELSE");
 					//Si la premiere fois reception message
 					if(!this.alreadySeen){
 						this.alreadySeen = true;
