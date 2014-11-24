@@ -1,15 +1,11 @@
 package com.ensimag.group2_projet.Client;
 //package fr.ensimag.client;
 
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.List;
-import java.util.UUID;
 
-import com.ensimag.api.bank.IAccount;
 import com.ensimag.api.bank.IBankAction;
 import com.ensimag.api.bank.IBankMessage;
 import com.ensimag.api.bank.IBankNode;

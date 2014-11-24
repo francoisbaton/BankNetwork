@@ -3,7 +3,6 @@ package com.ensimag.group2_projet.Server.Implem;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import com.ensimag.api.bank.IBank;
 import com.ensimag.api.bank.IBankNode;
 
 public class BankActionImplemSubMoney extends BankActionImplem{

@@ -1,6 +1,5 @@
 package com.ensimag.group2_projet.Server.Implem;
 
-import java.awt.TrayIcon.MessageType;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -22,7 +21,7 @@ import com.ensimag.api.node.INode;
 public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	
 	/**
-	 * 
+	 * Liste des attributs de BankNodeImplem
 	 */
 	private static final long serialVersionUID = 4570225617460237787L;
 	private IBank bank;
@@ -31,6 +30,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	private List<IResult<? extends Serializable>> listRes;
 	private boolean alreadySeen;
 	private List<IBankMessage> listMessage;
+	private INode<IBankMessage> up; //correspond au noeud dont on vient recevoir un message
 	
 	protected BankNodeImplem() throws RemoteException {
 		super();
@@ -40,7 +40,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 		this.listRes = new  ArrayList<IResult<? extends Serializable>>();
 		this.alreadySeen = false;
 		this.listMessage = new ArrayList<IBankMessage>();
-		// TODO Auto-generated constructor stub
+		this.up = null;
 	}
 	
 	public BankNodeImplem(long id) throws RemoteException {
@@ -50,6 +50,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 		this.listRes = new  ArrayList<IResult<? extends Serializable>>();
 		this.alreadySeen = false;
 		this.listMessage = new ArrayList<IBankMessage>();
+		this.up = null;
 	}
 
 	//Redefinition d equals pour savoir l id des voisins
@@ -90,53 +91,71 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 				//Cree le résultat de l'action
 				IResult<Serializable> res = new ResultImplem(message.getMessageId(),message.getAction().execute(this));
 				
-				//Propage ACK
-				IAck ack = new AckImplem(this.bank.getBankId(), message.getMessageId());
-				for(INode<IBankMessage> voisin : this.neighboors){
-					voisin.onAck(ack);
+				//On assigne le Node up en le cherchant dans la liste de voisins
+				for(INode<IBankMessage> voisin : this.neighboors){	
+					if(voisin.getId() == message.getSenderId()){
+						this.up = voisin;
+					}
 				}
 				
+				//Propage ACK
+				IAck ack = new AckImplem(this.bank.getBankId(), message.getMessageId());
+				this.up.onAck(ack);	
+				/*for(INode<IBankMessage> voisin : this.neighboors){
+					voisin.onAck(ack);
+				}*/
+				
 				//Propagation du résultat a l'original sender
-				IBankMessage returnMessage = new BankMessageImplem(this.getId(), this.getId(), message.getMessageId(),
-						message.getOriginalBankSenderId(), EnumMessageType.SINGLE_DEST, new BankActionImplemAddResultList(res));
+				if(!(message.getAction() instanceof BankActionImplemAddResultList)){
+					IBankMessage returnMessage = new BankMessageImplem(this.getId(), this.getId(), message.getMessageId(),
+							message.getOriginalBankSenderId(), EnumMessageType.SINGLE_DEST, new BankActionImplemAddResultList(res));
 
-				for(INode<IBankMessage> voisin : this.neighboors){
-					voisin.onMessage(returnMessage);
+					for(INode<IBankMessage> voisin : this.neighboors){
+						voisin.onMessage(returnMessage);
+					}
 				}
 			
 			}
-			else{//Propage le message	
-				//Si noeud puit
-				System.out.println("ELSE");
-				if(this.neighboors.size() == 1){
+			else{//Propagation du message	
+				
+				if(this.neighboors.size() == 1 && this.bank.getBankId()!=message.getOriginalBankSenderId()){
+					//on est sur un noeud puit qui n'est pas l' "original sender"
 					System.out.println("ELSE-IF");
-					//Renvoie du ack
-					//Propage ACK
 					IAck ack = new AckImplem(this.bank.getBankId(), message.getMessageId());
 					for(INode<IBankMessage> voisin : this.neighboors){
 						voisin.onAck(ack);
 					}
 					
-				}else{ // Noeud non puits
+				}else{ 
+					
 					System.out.println("ELSE-ELSE");
-					//Si la premiere fois reception message
-					if(!this.alreadySeen){
+					if(!this.alreadySeen){ //on réceptionne le message pour la première fois
 						this.alreadySeen = true;
-						//On propage
-						for(INode<IBankMessage> voisin : this.neighboors){
-							//On change le sender et on propage le message
-							IBankMessage clonedMessage = message.clone();
-							clonedMessage.setSenderId(this.bank.getBankId());
-							this.listMessage.add(clonedMessage);
-							voisin.onMessage(clonedMessage);
+						
+						//On assigne le Node up en le cherchant dans la liste de voisins
+						for(INode<IBankMessage> voisin : this.neighboors){	
+							if(voisin.getId() == message.getSenderId()){
+								this.up = voisin;
+							}
 						}
 						
-					}else{ // Si pas la premiere fois
-						//Propage ACK
-						IAck ack = new AckImplem(this.bank.getBankId(), message.getMessageId());
-						for(INode<IBankMessage> voisin : this.neighboors){
-							voisin.onAck(ack);
+						for(INode<IBankMessage> voisin : this.neighboors){	
+							if(voisin.getId() != message.getSenderId()){
+								//On change le sender et on propage le message
+								IBankMessage clonedMessage = message.clone();
+								clonedMessage.setSenderId(this.bank.getBankId());
+								this.listMessage.add(clonedMessage);
+								voisin.onMessage(clonedMessage);
+							}
 						}
+						
+					}else{ // Si pas la premiere fois => envoie ACK
+						
+						IAck ack = new AckImplem(this.bank.getBankId(), message.getMessageId());
+						this.up.onAck(ack);	
+						/*for(INode<IBankMessage> voisin : this.neighboors){
+							voisin.onAck(ack);
+						}*/
 					}
 				}
 			}
@@ -153,20 +172,26 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	 * @throws RemoteException
 	 */
 	public void onAck(IAck ack) throws RemoteException {
+		System.out.println("onACK : " + this.id);
+		this.alreadySeen = false;
 		long senderID = ack.getAckSenderId();
-		long originalSender = 0;
+		boolean found = false;
 		
 		for(IBankMessage ibm : this.listMessage){
 			if(ibm.getDestinationBankId() == senderID){
-				originalSender = ibm.getOriginalBankSenderId();
+				found = true;
 				this.listMessage.remove(ibm);
+				break;
 			}
 		}
 		
-		if(this.listMessage.isEmpty() && this.bank.getBankId()!=originalSender){
-			IAck ackCloned = new AckImplem(this.bank.getBankId(), ack.getAckMessageId());
-			for(INode<IBankMessage> voisin : this.neighboors){
-				voisin.onAck(ackCloned);
+		if(found){
+			if(this.listMessage.isEmpty() && this.up!=null){
+				IAck ackCloned = new AckImplem(this.bank.getBankId(), ack.getAckMessageId());
+				this.up.onAck(ackCloned);
+				/*for(INode<IBankMessage> voisin : this.neighboors){
+					voisin.onAck(ackCloned);
+				}*/
 			}
 		}
 	}
