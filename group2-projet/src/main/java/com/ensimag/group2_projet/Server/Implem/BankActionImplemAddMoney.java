@@ -36,6 +36,8 @@ public class BankActionImplemAddMoney extends BankActionImplem{
 	public long getMontant(){
 		return this.montant;
 	}
+	
+	
 
 	
 	public Serializable execute(IBankNode node) throws Exception {
