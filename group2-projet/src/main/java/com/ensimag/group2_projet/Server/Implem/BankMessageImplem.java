@@ -80,7 +80,7 @@ public class BankMessageImplem implements IBankMessage, Serializable {
 		BankMessageImplem bankMessageCloned;
 		//TODO deepcopy de bankAction?
 		try {
-			bankMessageCloned = new BankMessageImplem(this.originalSenderId, this.originalSenderId,
+			bankMessageCloned = new BankMessageImplem(this.originalSenderId, this.senderId,
 					this.messageId, this.targetBankId, this.messageType,this.bankAction);
 			return bankMessageCloned;
 		} catch (RemoteException e) {
