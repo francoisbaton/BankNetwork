@@ -1,16 +1,21 @@
 package com.ensimag.group2_projet.Client;
 //package fr.ensimag.client;
 
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.ensimag.api.bank.IAccount;
 import com.ensimag.api.bank.IBankAction;
 import com.ensimag.api.bank.IBankMessage;
 import com.ensimag.api.bank.IBankNode;
 import com.ensimag.api.bank.IUser;
 import com.ensimag.api.message.EnumMessageType;
+import com.ensimag.api.message.IResult;
 import com.ensimag.group2_projet.Server.Implem.BankActionImplemOpenAccount;
 import com.ensimag.group2_projet.Server.Implem.BankMessageImplem;
 import com.ensimag.group2_projet.Server.Implem.UserImplem;
@@ -37,26 +42,21 @@ public class Main {
             System.out.println(ibn1.getId()); 
 
             IUser user = new UserImplem("linares","clement","22");
-           
-            /*ibn1.openAccount(user);
-            
-            List<IAccount> list = ibn1.getAccounts();
-            
-            if(list.isEmpty()){
-            	System.out.println("ok");
-            }else{
-            	for(IAccount acc : list){
-            		System.out.println("Nom :" + acc.getAccountUser().getFirstName());
-            		System.out.println("Prénom :" + acc.getAccountUser().getName());
-            		System.out.println(acc.getAccountNumber());
-            		System.out.println(ibn1.closeAccount(acc.getAccountNumber()));
-            	}
-            }*/
             
             IBankAction action = new BankActionImplemOpenAccount(user);
-            IBankMessage ibm = new BankMessageImplem(ibn1.getId(),ibn1.getId(),23,ibn5.getId(),EnumMessageType.BROADCAST,action);
+            IBankMessage ibm = new BankMessageImplem(ibn1.getId(),ibn1.getId(),23,ibn3.getId(),EnumMessageType.BROADCAST,action);
             
             ibn1.onMessage(ibm);
+            
+            List<IResult<? extends Serializable>> listRes = ibn1.getResultForMessage(23);
+            
+            for(IResult<? extends Serializable> elem : listRes){
+            	IAccount account = (IAccount)(elem.getData());
+            	System.out.println(account.getAccountNumber());
+            }
+            
+            
+            
         }
         catch (Exception e)
         {

@@ -6,7 +6,7 @@ import java.rmi.registry.Registry;
 import com.ensimag.api.bank.IBankNode;
 import com.ensimag.group2_projet.Server.Implem.BankNodeImplem;
 
-public class Main {
+public class Main_1 {
 	
 	private void start(){
         try {
@@ -16,7 +16,7 @@ public class Main {
             //Creation des banques nodes
             IBankNode bankNode1 = new BankNodeImplem(1);
             
-            IBankNode bankNode2 = new BankNodeImplem(2);
+            /*IBankNode bankNode2 = new BankNodeImplem(2);
             
             IBankNode bankNode3 = new BankNodeImplem(3);
             
@@ -38,24 +38,24 @@ public class Main {
             
             bankNode5.addNeighboor(bankNode2);
             bankNode5.addNeighboor(bankNode3);
-            bankNode5.addNeighboor(bankNode4);
+            bankNode5.addNeighboor(bankNode4);*/
             
             //Enregistrement des banques
             registry.rebind("myBankNode1", bankNode1);
-            registry.rebind("myBankNode2", bankNode2);
+            /*registry.rebind("myBankNode2", bankNode2);
             registry.rebind("myBankNode3", bankNode3);
             registry.rebind("myBankNode4", bankNode4);
-            registry.rebind("myBankNode5", bankNode5);
+            registry.rebind("myBankNode5", bankNode5);*/
             
         } catch (Exception e) {
             e.printStackTrace();
         }     
-        System.out.println("system is ready");
+        System.out.println("system 1 is ready");
     }
    
     public static void main(String[] args)
     {
-        Main main = new Main();
+        Main_1 main = new Main_1();
         main.start();
    }
 
