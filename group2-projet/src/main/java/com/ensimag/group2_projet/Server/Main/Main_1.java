@@ -28,17 +28,17 @@ public class Main_1 {
             bankNode1.addNeighboor(bankNode2);
             
             bankNode2.addNeighboor(bankNode1);
-            bankNode2.addNeighboor(bankNode5);
+            bankNode2.addNeighboor(bankNode3);
             
-            bankNode3.addNeighboor(bankNode4);
-            bankNode3.addNeighboor(bankNode5);
+            bankNode5.addNeighboor(bankNode3);
+            bankNode5.addNeighboor(bankNode4);
             
             bankNode4.addNeighboor(bankNode3);
             bankNode4.addNeighboor(bankNode5);
             
-            bankNode5.addNeighboor(bankNode2);
-            bankNode5.addNeighboor(bankNode3);
-            bankNode5.addNeighboor(bankNode4);*/
+            bankNode3.addNeighboor(bankNode2);
+            bankNode3.addNeighboor(bankNode4);
+            bankNode3.addNeighboor(bankNode5);*/
             
             //Enregistrement des banques
             registry.rebind("myBankNode1", bankNode1);

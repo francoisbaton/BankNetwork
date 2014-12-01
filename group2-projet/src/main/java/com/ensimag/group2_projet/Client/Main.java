@@ -31,24 +31,24 @@ import com.ensimag.group2_projet.Server.Implem.UserImplem;
 public class Main {
     public static void main(String[] args) throws RemoteException, NotBoundException, MalformedURLException
     {
-        IBankNode ibn1 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode1");
-        IBankNode ibn2 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode2");
-        IBankNode ibn3 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode3");
-        IBankNode ibn4 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode4");
+        //IBankNode ibn1 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode1");
+        //IBankNode ibn2 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode2");
+        //IBankNode ibn3 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode3");
+        //IBankNode ibn4 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode4");
         IBankNode ibn5 = (IBankNode) Naming.lookup("rmi://localhost/myBankNode5");
         
         try {
 
-            System.out.println(ibn1.getId()); 
+            System.out.println(ibn5.getId()); 
 
             IUser user = new UserImplem("linares","clement","22");
             
             IBankAction action = new BankActionImplemOpenAccount(user);
-            IBankMessage ibm = new BankMessageImplem(ibn1.getId(),ibn1.getId(),23,ibn3.getId(),EnumMessageType.BROADCAST,action);
+            IBankMessage ibm = new BankMessageImplem(ibn5.getId(),ibn5.getId(),23,4,EnumMessageType.BROADCAST,action);
             
-            ibn1.onMessage(ibm);
+            ibn5.onMessage(ibm);
             
-            List<IResult<? extends Serializable>> listRes = ibn1.getResultForMessage(23);
+            List<IResult<? extends Serializable>> listRes = ibn5.getResultForMessage(23);
             
             for(IResult<? extends Serializable> elem : listRes){
             	IAccount account = (IAccount)(elem.getData());
