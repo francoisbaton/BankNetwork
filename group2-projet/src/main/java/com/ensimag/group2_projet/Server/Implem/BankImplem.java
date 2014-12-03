@@ -57,12 +57,9 @@ public class BankImplem implements IBank, Serializable{
 
 	public boolean closeAccount(long number) throws AccountNotFoundException,
 			RemoteException {
-		
 		for(int i=0; i<accountBank.size();i++){
-			IAccount temp=accountBank.get(i);
-			if(temp.getAccountNumber()==number){
-				this.accountBank.remove(temp);
-				return true;
+			if(accountBank.get(i).getAccountNumber()==number){
+				return this.accountBank.remove(accountBank.get(i));
 			}
 		}
 		throw new AccountNotFoundException();

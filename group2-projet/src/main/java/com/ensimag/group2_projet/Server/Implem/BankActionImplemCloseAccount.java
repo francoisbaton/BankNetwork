@@ -21,11 +21,12 @@ public class BankActionImplemCloseAccount extends BankActionImplem {
 	}
 	
 	public BankActionImplemCloseAccount(long number) throws RemoteException {
+		super();
 		this.number = number;
 	}
 
 	public Serializable execute(IBankNode node) throws Exception {
-		return node.closeAccount(number);
+		return node.closeAccount(this.number);
 	}
 
 

@@ -17,11 +17,10 @@ public class BankActionImplemAddMoney extends BankActionImplem{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BankActionImplemAddMoney(int montant) throws RemoteException {
+	public BankActionImplemAddMoney(int montant, long idAccount) throws RemoteException {
 		super();
 		this.montant = montant;
-		this.idAccount = 0;
-		// TODO Auto-generated constructor stub
+		this.idAccount = idAccount;
 	}
 
 	/**

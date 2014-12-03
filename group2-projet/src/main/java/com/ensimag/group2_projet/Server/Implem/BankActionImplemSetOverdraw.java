@@ -12,12 +12,13 @@ public class BankActionImplemSetOverdraw extends BankActionImplem{
 	
 	public BankActionImplemSetOverdraw() throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 	
-	public BankActionImplemSetOverdraw(long montant) throws RemoteException {
+	public BankActionImplemSetOverdraw(int montant, long idAccount) throws RemoteException {
 		super();
-		// TODO Auto-generated constructor stub
+		this.montant = montant;
+		this.idAccount = idAccount;
 	}
 
 	/**

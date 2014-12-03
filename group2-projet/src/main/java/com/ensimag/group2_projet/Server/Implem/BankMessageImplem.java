@@ -3,6 +3,7 @@ package com.ensimag.group2_projet.Server.Implem;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+
 import com.ensimag.api.bank.IBankAction;
 import com.ensimag.api.bank.IBankMessage;
 import com.ensimag.api.message.EnumMessageType;
@@ -44,7 +45,25 @@ public class BankMessageImplem implements IBankMessage, Serializable {
 		this.bankAction = bankAction;
 	}
 	
-
+	@Override
+	public boolean equals(Object o){
+		if(o == this){
+			return true;
+		}else{
+			if(o instanceof BankMessageImplem){
+				if(((BankMessageImplem) o).getOriginalBankSenderId() == this.originalSenderId
+						&& ((BankMessageImplem) o).getMessageId() == this.messageId
+						&& ((BankMessageImplem) o).getDestinationBankId() == this.targetBankId
+						&& ((BankMessageImplem) o).getMessageType() == this.messageType){
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				return false;
+			}
+		}
+	}
 	
 	public long getMessageId() {
 		return this.messageId;
