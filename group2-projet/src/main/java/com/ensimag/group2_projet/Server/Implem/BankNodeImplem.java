@@ -29,7 +29,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 	private ArrayList<INode<IBankMessage>> neighboors;
 	private List<IResult<? extends Serializable>> listRes;
 	private boolean alreadySeen;
-	private boolean alreadyExecute;
+	private boolean hasResult;
 	private List<INode<IBankMessage>> waitAck; //liste des voisins a qui on a envoyé un message
 	private INode<IBankMessage> up; //correspond au noeud dont on vient recevoir un message
 	
@@ -40,7 +40,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 		this.neighboors = new ArrayList<INode<IBankMessage>>();
 		this.listRes = new  ArrayList<IResult<? extends Serializable>>();
 		this.alreadySeen = false;
-		this.alreadyExecute = false;
+		this.hasResult = false;
 		this.waitAck = new ArrayList<INode<IBankMessage>>();
 		this.up = null;
 	}
@@ -51,7 +51,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 		this.neighboors = new ArrayList<INode<IBankMessage>>();
 		this.listRes = new  ArrayList<IResult<? extends Serializable>>();
 		this.alreadySeen = false;
-		this.alreadyExecute = false;
+		this.hasResult = false;
 		this.waitAck = new ArrayList<INode<IBankMessage>>();
 		this.up = null;
 	}
@@ -94,10 +94,9 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 			
 			System.out.println("onMessage : " + this.id);
 			//Execute l'action du message si l id de la destination == id bank
-			if(message.getDestinationBankId() == this.bank.getBankId() && !this.alreadySeen && !alreadyExecute){
+			if(message.getDestinationBankId() == this.bank.getBankId() && !this.alreadySeen){
 				this.alreadySeen = true;
-				this.alreadyExecute = true;
-				
+					
 				//Cree le résultat de l'action
 				IResult<Serializable> res = new ResultImplem(message.getMessageId(),message.getAction().execute(this));
 				
@@ -111,6 +110,10 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 				//Propage ACK
 				IAck ack = new AckImplem(this.bank.getBankId(), message.getMessageId());
 				this.up.onAck(ack);	
+				
+				if(message.getMessageType() == EnumMessageType.DELIVERY){
+					this.hasResult = true;
+				}
 				
 				//Propagation du résultat a l'original sender
 				if(message.getMessageType() != EnumMessageType.DELIVERY){
@@ -135,7 +138,7 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 					
 				}else{ 
 					
-					if(!this.alreadySeen && !this.alreadyExecute){ //on réceptionne le message pour la première fois
+					if(!this.alreadySeen){ //on réceptionne le message pour la première fois
 						this.alreadySeen = true;
 						
 						//On assigne le Node up en le cherchant dans la liste de voisins
@@ -148,12 +151,16 @@ public class BankNodeImplem extends UnicastRemoteObject implements IBankNode{
 						for(INode<IBankMessage> voisin : this.neighboors){	
 							if(voisin.getId() != message.getSenderId() && voisin.getId() != message.getOriginalBankSenderId()){
 								//On change le sender et on propage le message
-								IBankMessage clonedMessage = message.clone();
-								clonedMessage.setSenderId(this.bank.getBankId());
-								this.waitAck.add(voisin);
-								voisin.onMessage(clonedMessage);
+								if(!this.hasResult){
+									IBankMessage clonedMessage = message.clone();
+									clonedMessage.setSenderId(this.bank.getBankId());
+									this.waitAck.add(voisin);
+									voisin.onMessage(clonedMessage);
+								}
 							}
 						}
+						
+						this.hasResult = false;
 						
 					}else{ // Si pas la premiere fois => envoie ACK
 						this.alreadySeen = false;

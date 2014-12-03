@@ -22,10 +22,10 @@ public class Main_1 {
             
             IBankNode bankNode4 = new BankNodeImplem(4);
             
-            IBankNode bankNode5 = new BankNodeImplem(5);
+            IBankNode bankNode5 = new BankNodeImplem(5);*/
             
             //Creation des liaisons entre les banques nodes
-            bankNode1.addNeighboor(bankNode2);
+            /*bankNode1.addNeighboor(bankNode2);
             
             bankNode2.addNeighboor(bankNode1);
             bankNode2.addNeighboor(bankNode3);
